@@ -10,15 +10,14 @@ from datetime import datetime
 
 
 class Category(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(50), unique=True, nullable=False)
-    image = db.Column(db.String(120), unique=True)
-
+    image = db.Column(db.LargeBinary, unique=True)
 
 class Food(db.Model):
     id= db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
-    image = db.Column(db.String(120), nullable = True)
+    image = db.Column(db.LargeBinary, nullable = True)
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'),
         nullable=False)
