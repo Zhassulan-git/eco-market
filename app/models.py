@@ -1,21 +1,19 @@
-from .__init__ import db
+from app import db
 from datetime import datetime
 
 
 class Category(db.Model):
-    __tablename__ = 'category'
-
-
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer(), primary_key=True)
     title = db.Column(db.String(50), unique=True, nullable=False)
-    image = db.Column(db.String(120), unique=True)
+    image = db.Column(db.LargeBinary, unique=True)
 
 
 class Food(db.Model):
-    __tablename__ = 'food'
     id= db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50), nullable=False)
-    image = db.Column(db.String(120), nullable = True)
+    image = db.Column(db.LargeBinary, nullable = True)
+    price = db.Column(db.Integer, nullable = False)
+    description = db.Column(db.String(255), nullable = True)
 
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'),
         nullable=False)
@@ -23,7 +21,6 @@ class Food(db.Model):
         backref=db.backref('food', lazy=True))
     
 class Basket(db.Model):
-    __tablename__ = 'basket'
 
     id= db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable = False)
@@ -34,7 +31,6 @@ class Basket(db.Model):
 
 class History(db.Model):
 
-    __tablename__ = 'history'
 
     id = db.Column(db.Integer, primary_key = True)
     order_date = db.Column(db.DateTime, nullable=False,
@@ -43,7 +39,6 @@ class History(db.Model):
     delivery_cost = db.Column(db.Integer, nullable = True)
 
 class OrderDetails(db.Model):
-    __tablename__ = 'order_details'
 
     id = db.Column(db.Integer, primary_key = True)
     quantity = db.Column(db.Integer, nullable = False)
