@@ -1,9 +1,11 @@
 from flask import Flask
-#All Necessary Imports
-from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:grespost@localhost:5432/postgres'
-db = SQLAlchemy(app)
+db_url = 'postgresql://postgres:grespost@localhost:5432/postgres'
+engine = create_engine(db_url, echo=True)
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 from app import routes
